@@ -55,6 +55,10 @@ img {
 }
 
 /* --- UI ELEMENTS --- */
+.mobile-toggle {
+    display: none;
+}
+
 .btn {
     font-family: var(--font-ui);
     text-transform: uppercase;
@@ -405,8 +409,14 @@ footer {
     transform: translateY(0);
 }
 
-/* --- RESPONSIVE --- */
+/* --- RESPONSIVE & MOBILE --- */
 @media (max-width: 768px) {
+    :root {
+        --spacing-section: 60px;
+        --spacing-container: 20px;
+    }
+
+    /* Layout & Spacing */
     .hero h1 {
         font-size: 2.5rem;
     }
@@ -424,6 +434,107 @@ footer {
         flex-direction: column;
         align-items: flex-start;
         gap: 30px;
+    }
+
+    .quote-text {
+        font-size: 1.8rem;
+    }
+
+    .quote-text::before {
+        font-size: 6rem;
+        top: -40px;
+        left: -20px;
+    }
+
+    /* Mobile Navigation */
+    .mobile-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 2000;
+        padding: 0;
+    }
+
+    .mobile-toggle span {
+        width: 100%;
+        height: 2px;
+        background-color: var(--white);
+        transition: all 0.3s ease;
+    }
+
+    .nav-standard.scrolled .mobile-toggle span,
+    .nav-standard:not(.hero-nav) .mobile-toggle span {
+        background-color: var(--gold);
+        /* Ensure visibility on white/scrolled */
+    }
+
+    /* When menu is open, make hamburger white (since menu bg is navy) */
+    body.menu-open .mobile-toggle span {
+        background-color: var(--gold);
+    }
+
+    /* Animate Hamburger */
+    body.menu-open .mobile-toggle span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 6px);
+    }
+
+    body.menu-open .mobile-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    body.menu-open .mobile-toggle span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* Mobile Menu Container */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Hidden */
+        width: 100%;
+        height: 100vh;
+        background-color: var(--navy);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.4s ease;
+        padding-top: 60px;
+        display: flex;
+        z-index: 1500;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    /* Mobile Menu Links */
+    .nav-links a {
+        font-size: 1.5rem;
+        margin: 15px 0 !important;
+        /* Override inline styles */
+        color: var(--ivory) !important;
+        opacity: 0.8;
+        display: block;
+    }
+
+    .nav-links a.active {
+        color: var(--gold) !important;
+        opacity: 1;
+        border-bottom: none;
+        /* Remove border, use color */
+    }
+
+    /* Booking Process */
+    .progress-bar {
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 0.65rem;
     }
 }
 
