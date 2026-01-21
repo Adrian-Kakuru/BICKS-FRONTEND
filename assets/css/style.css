@@ -493,20 +493,22 @@ footer {
 
     /* Mobile Menu Container */
     .nav-links {
+        display: none;
         position: fixed;
         top: 0;
-        right: -100%;
-        /* Hidden */
+        right: 0;
         width: 100%;
         height: 100vh;
         background-color: var(--navy);
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: right 0.4s ease;
-        padding-top: 60px;
-        display: flex;
         z-index: 1500;
+        padding-top: 40px;
+    }
+
+    .nav-links.active {
+        display: flex !important;
     }
 
     .nav-links.active {
@@ -535,6 +537,75 @@ footer {
         flex-wrap: wrap;
         gap: 15px;
         font-size: 0.65rem;
+        justify-content: center;
+    }
+
+    /* --- FIXES FROM AUDIT V2 --- */
+
+    /* 1. Global Hero Alignment */
+    .hero {
+        justify-content: center !important;
+        text-align: center;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero-bg {
+        object-position: center;
+    }
+
+    .hero-content {
+        margin: 0 auto;
+        transform: translateY(0);
+    }
+
+    /* 2. Reduced Typography */
+    .hero h1 {
+        font-size: 2.2rem !important;
+        margin-bottom: 20px;
+    }
+
+    /* 3. Button Sizing */
+    .btn,
+    .btn-gold {
+        padding: 14px 24px;
+        font-size: 0.75rem;
+        max-width: 100%;
+    }
+
+    /* 4. Dining: Center Text */
+    .sensory-text {
+        text-align: center;
+        padding: 20px;
+        font-size: 1.4rem;
+    }
+
+    /* 5. Experiences: Horizontal Layout */
+    .in-hotel-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 20px;
+        padding-bottom: 20px;
+        margin: 0 -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .hotel-item {
+        min-width: 260px;
+        scroll-snap-align: center;
+    }
+
+    /* 6. Contact: Fix Squeezed Cards */
+    .methods {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .method-card {
+        padding: 40px 20px;
     }
 }
 
