@@ -205,6 +205,16 @@
             margin-bottom: 40px;
             color: #777;
             font-weight: 300;
+            margin-bottom: 40px;
+            color: #777;
+            font-weight: 300;
+        }
+
+        .bridge-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
         }
 
         @media (max-width: 900px) {
@@ -221,9 +231,64 @@
                 height: 400px;
             }
 
+            /* Horizontal Scroll for "Within Our Walls" */
             .in-hotel-grid {
-                grid-template-columns: 1fr;
-                gap: 60px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding: 0 7.5vw 40px;
+                gap: 20px;
+                -webkit-overflow-scrolling: touch;
+                /* Override grid props */
+                grid-template-columns: none;
+            }
+
+            .hotel-item {
+                flex: 0 0 85vw;
+                width: 85vw;
+                min-width: 85vw;
+                scroll-snap-align: center;
+                text-align: left;
+                /* Optional: Align text left for better reading on cards? User didn't ask. Original is centered. I'll check. */
+                text-align: center;
+                /* Keeping center as per original design */
+                margin-bottom: 0;
+            }
+
+            .hotel-item img {
+                height: 250px;
+                /* Reduced height for cards */
+                margin-bottom: 20px;
+            }
+
+            /* Mobile CTA Stack */
+            .bridge-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .bridge .btn {
+                padding: 10px 24px;
+                font-size: 0.75rem;
+                width: auto;
+                min-width: 140px;
+                text-align: center;
+            }
+
+            .bridge .btn-text {
+                font-size: 0.75rem;
+            }
+
+            /* Alignment Fixes */
+            .grid-header .divider {
+                margin: 0 auto 30px auto !important;
+            }
+
+            .local-knowledge .btn {
+                margin: 0 auto;
+                align-self: center;
             }
         }
     </style>
@@ -355,7 +420,7 @@
     <section class="bridge reveal">
         <h2>Every stay unfolds differently.</h2>
         <p>We’d love to help shape yours.</p>
-        <div style="display: flex; gap: 30px; justify-content: center; align-items: center;">
+        <div class="bridge-actions">
             <a href="booking.html" class="btn btn-gold">Book Your Stay</a>
             <a href="rooms.html" class="btn-text" style="border-bottom: 1px solid var(--navy);">View Rooms</a>
         </div>

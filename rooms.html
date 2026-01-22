@@ -273,6 +273,30 @@
                 gap: 50px;
             }
         }
+
+        @media (max-width: 768px) {
+
+            /* Horizontal Scroll for Comparison Cards */
+            .comparison-cards {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding: 0 7.5vw 40px;
+                gap: 20px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .comp-card {
+                flex: 0 0 85vw;
+                width: 85vw;
+                min-width: 85vw;
+                /* Force width */
+                scroll-snap-align: center;
+                margin: 0;
+            }
+        }
     </style>
 </head>
 

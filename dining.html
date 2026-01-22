@@ -230,6 +230,13 @@
             font-size: 1.2rem;
         }
 
+        .bridge-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
         @media (max-width: 900px) {
 
             .split-section,
@@ -261,6 +268,26 @@
             .lounge-img {
                 width: 100%;
                 height: 300px;
+            }
+
+            /* Mobile CTA Stack */
+            .bridge-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .bridge .btn {
+                padding: 10px 24px;
+                font-size: 0.75rem;
+                width: auto;
+                min-width: 140px;
+                /* Minimal touch target */
+                text-align: center;
+            }
+
+            .bridge .menu-link {
+                font-size: 0.75rem;
+                margin-top: 0;
             }
         }
     </style>
@@ -357,9 +384,7 @@
         <div class="info-col">
             <h4>Reservations</h4>
             <p>Reservations recommended. Hotel guests receive priority seating.</p>
-            <div class="reserve-block">
-                <a href="#" class="btn btn-outline">Reserve a Table</a>
-            </div>
+
         </div>
     </section>
 
@@ -371,10 +396,9 @@
     <section class="bridge reveal">
         <h3>Staying with us?</h3>
         <p>Your table is waiting.</p>
-        <div style="display: flex; justify-content: center; gap: 20px;">
+        <div class="bridge-actions">
             <a href="rooms.html" class="btn btn-gold">Book Your Stay</a>
-            <a href="rooms.html" class="menu-link" style="margin-top: 15px; border-bottom-color: var(--navy);">View
-                Rooms</a>
+            <a href="rooms.html" class="menu-link" style="border-bottom-color: var(--navy);">View Rooms</a>
         </div>
     </section>
 

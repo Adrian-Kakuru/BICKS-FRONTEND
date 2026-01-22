@@ -29,6 +29,7 @@
             border-radius: 4px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .gallery-item:hover {
@@ -52,6 +53,7 @@
             padding: 20px;
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .gallery-item:hover .gallery-caption {
@@ -70,9 +72,75 @@
             opacity: 0.9;
         }
 
+        /* Lightbox Styles */
+        #lightbox {
+            position: fixed;
+            z-index: 3000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #lightbox.active {
+            opacity: 1;
+        }
+
+        #lightbox-img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 4px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 3001;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 3001;
+            user-select: none;
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
         @media (max-width: 900px) {
             .gallery-grid {
                 column-count: 2;
+            }
+
+            .lightbox-nav {
+                display: none;
+                /* Swipe only on mobile usually, or keep buttons? */
+                /* Keeping buttons is safer, but user asked for swipe. We'll support both. */
+                padding: 10px;
             }
         }
 
@@ -115,106 +183,194 @@
 
     <div class="gallery-grid">
 
-        <!-- Rooms -->
-        <div class="gallery-item reveal">
-            <img src="assets/images/room1.png" alt="Signature King">
+        <!-- 1. Room 1 -->
+        <div class="gallery-item reveal" onclick="openLightbox(0)">
+            <img src="assets/images/room1.png" loading="lazy" alt="Signature King">
             <div class="gallery-caption">
-                <h4>Signature Rest</h4>
-                <p>Crisp linens and deep shades.</p>
+                <h4>Signature King</h4>
+                <p>Crisp linens.</p>
             </div>
         </div>
 
-        <div class="gallery-item reveal">
-            <img src="assets/images/room2.png" alt="Garden Loft">
-            <div class="gallery-caption">
-                <h4>Garden Loft</h4>
-                <p>Elevated views and natural light.</p>
-            </div>
-        </div>
-
-        <div class="gallery-item reveal">
-            <img src="assets/images/room3.png" alt="Courtyard Room">
-            <div class="gallery-caption">
-                <h4>Courtyard Room</h4>
-                <p>Direct access to the outdoors.</p>
-            </div>
-        </div>
-
-        <!-- Dining -->
-        <div class="gallery-item reveal">
-            <img src="assets/images/dining1.png" alt="Dining Detail">
-            <div class="gallery-caption">
-                <h4>The Table</h4>
-                <p>Simple, honest ingredients.</p>
-            </div>
-        </div>
-
-        <div class="gallery-item reveal">
-            <img src="assets/images/dining_hero.png" alt="Dining Mood">
+        <!-- 2. Dining Hero 2 -->
+        <div class="gallery-item reveal" onclick="openLightbox(1)">
+            <img src="assets/images/dining_hero_2.png" loading="lazy" alt="Evening Dining">
             <div class="gallery-caption">
                 <h4>Evening Ambience</h4>
-                <p>Dining under the stars.</p>
+                <p>Warm light.</p>
             </div>
         </div>
 
-        <div class="gallery-item reveal">
-            <img src="assets/images/dining_overview.png" alt="Dining Space">
+        <!-- 3. Walk 1 -->
+        <div class="gallery-item reveal" onclick="openLightbox(2)">
+            <img src="assets/images/walk1.png" loading="lazy" alt="Garden Path">
+            <div class="gallery-caption">
+                <h4>Garden Paths</h4>
+                <p>Greenery everywhere.</p>
+            </div>
+        </div>
+
+        <!-- 4. Room 2 -->
+        <div class="gallery-item reveal" onclick="openLightbox(3)">
+            <img src="assets/images/room2.png" loading="lazy" alt="Garden Loft">
+            <div class="gallery-caption">
+                <h4>Garden Loft</h4>
+                <p>Elevated views.</p>
+            </div>
+        </div>
+
+        <!-- 5. Dining Overview -->
+        <div class="gallery-item reveal" onclick="openLightbox(4)">
+            <img src="assets/images/dining_overview.png" loading="lazy" alt="The Glasshouse">
             <div class="gallery-caption">
                 <h4>The Glasshouse</h4>
-                <p>Connection with nature while you dine.</p>
+                <p>Dining in nature.</p>
             </div>
         </div>
 
-        <!-- Grounds -->
-        <div class="gallery-item reveal">
-            <img src="assets/images/walk1.png" alt="Garden Path">
+        <!-- 6. Toilet 1 -->
+        <div class="gallery-item reveal" onclick="openLightbox(5)">
+            <img src="assets/images/toilet1.jpeg" loading="lazy" alt="Modern Bathroom">
             <div class="gallery-caption">
-                <h4>Garden Pathways</h4>
-                <p>Wandering through the grounds.</p>
+                <h4>Modern Details</h4>
+                <p>Sleek finishes.</p>
             </div>
         </div>
 
-        <div class="gallery-item reveal">
-            <img src="assets/images/walk3.png" alt="Cottage Exterior">
+        <!-- 7. Room 3 -->
+        <div class="gallery-item reveal" onclick="openLightbox(6)">
+            <img src="assets/images/room3.png" loading="lazy" alt="Courtyard Room">
+            <div class="gallery-caption">
+                <h4>Courtyard Room</h4>
+                <p>Direct access.</p>
+            </div>
+        </div>
+
+        <!-- 8. Cafeteria -->
+        <div class="gallery-item reveal" onclick="openLightbox(7)">
+            <img src="assets/images/cafeteria.jpeg" loading="lazy" alt="Coffee Bar">
+            <div class="gallery-caption">
+                <h4>Coffee Bar</h4>
+                <p>Morning brewing.</p>
+            </div>
+        </div>
+
+        <!-- 9. Walk 3 -->
+        <div class="gallery-item reveal" onclick="openLightbox(8)">
+            <img src="assets/images/walk3.png" loading="lazy" alt="Stone Cottages">
             <div class="gallery-caption">
                 <h4>Stone Cottages</h4>
-                <p>Privacy and rhythm.</p>
+                <p>Privacy & rhythm.</p>
             </div>
         </div>
 
-        <div class="gallery-item reveal">
-            <img src="assets/images/outdoor_sidewalk.jpeg" alt="Exterior">
+        <!-- 10. Dining 1 -->
+        <div class="gallery-item reveal" onclick="openLightbox(9)">
+            <img src="assets/images/dining1.png" loading="lazy" alt="Table Setting">
             <div class="gallery-caption">
-                <h4>The Perimeter</h4>
-                <p>Quiet corners of the city.</p>
+                <h4>The Table</h4>
+                <p>Prepared with care.</p>
             </div>
         </div>
 
-        <!-- Work/Life -->
-        <div class="gallery-item reveal">
-            <img src="assets/images/office1.png" alt="Workspace">
+        <!-- 11. Office 1 -->
+        <div class="gallery-item reveal" onclick="openLightbox(10)">
+            <img src="assets/images/office1.png" loading="lazy" alt="Workspace">
             <div class="gallery-caption">
                 <h4>Focus</h4>
-                <p>Spaces designed for clarity.</p>
+                <p>Quiet workspaces.</p>
             </div>
         </div>
 
-        <div class="gallery-item reveal">
-            <img src="assets/images/boutique.png" alt="Boutique">
+        <!-- 12. Outdoor Sidewalk -->
+        <div class="gallery-item reveal" onclick="openLightbox(11)">
+            <img src="assets/images/outdoor_sidewalk.jpeg" loading="lazy" alt="Perimeter Walk">
+            <div class="gallery-caption">
+                <h4>Perimeter</h4>
+                <p>Long walks.</p>
+            </div>
+        </div>
+
+        <!-- 13. Boutique -->
+        <div class="gallery-item reveal" onclick="openLightbox(12)">
+            <img src="assets/images/boutique.png" loading="lazy" alt="Boutique">
             <div class="gallery-caption">
                 <h4>Curated Goods</h4>
-                <p>Take a piece of Bick's home.</p>
+                <p>Take Bick's home.</p>
             </div>
         </div>
 
-        <div class="gallery-item reveal">
-            <img src="assets/images/toilet1.jpeg" alt="Design Detail">
+        <!-- 14. Dining Hero -->
+        <div class="gallery-item reveal" onclick="openLightbox(13)">
+            <img src="assets/images/dining_hero.png" loading="lazy" alt="Dining Atmosphere">
             <div class="gallery-caption">
-                <h4>Modern Finishes</h4>
-                <p>Design in every detail.</p>
+                <h4>Atmosphere</h4>
+                <p>Unforgettable nights.</p>
             </div>
         </div>
 
+        <!-- 15. Another Office -->
+        <div class="gallery-item reveal" onclick="openLightbox(14)">
+            <img src="assets/images/another_office_shot.png" loading="lazy" alt="Evening Work">
+            <div class="gallery-caption">
+                <h4>Evening Focus</h4>
+                <p>Quiet inspiration.</p>
+            </div>
+        </div>
+
+        <!-- 16. Cafeteria Two -->
+        <div class="gallery-item reveal" onclick="openLightbox(15)">
+            <img src="assets/images/cafeteria_two.jpeg" loading="lazy" alt="Lounge Area">
+            <div class="gallery-caption">
+                <h4>Lounge</h4>
+                <p>Relax and unwind.</p>
+            </div>
+        </div>
+
+        <!-- 17. Experience Hero -->
+        <div class="gallery-item reveal" onclick="openLightbox(16)">
+            <img src="assets/images/experience_hero.png" loading="lazy" alt="Nature Path">
+            <div class="gallery-caption">
+                <h4>Nature</h4>
+                <p>Fresh air.</p>
+            </div>
+        </div>
+
+        <!-- 18. Rooms Hero -->
+        <div class="gallery-item reveal" onclick="openLightbox(17)">
+            <img src="assets/images/rooms_hero.png" loading="lazy" alt="Comfort">
+            <div class="gallery-caption">
+                <h4>Comfort</h4>
+                <p>Rest easy.</p>
+            </div>
+        </div>
+
+        <!-- 19. Home Hero -->
+        <div class="gallery-item reveal" onclick="openLightbox(18)">
+            <img src="assets/images/home_hero.png" loading="lazy" alt="Welcome">
+            <div class="gallery-caption">
+                <h4>Welcome</h4>
+                <p>Arrive and relax.</p>
+            </div>
+        </div>
+
+        <!-- 20. Overview -->
+        <div class="gallery-item reveal" onclick="openLightbox(19)">
+            <img src="assets/images/overview_shot.png" loading="lazy" alt="Birds Eye">
+            <div class="gallery-caption">
+                <h4>Overview</h4>
+                <p>The whole picture.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#10094;</div>
+        <img id="lightbox-img" src="" alt="Zoomed Image">
+        <div class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#10095;</div>
     </div>
 
     <section class="final-cta reveal">
@@ -240,6 +396,110 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script>
+        // Gallery Data (In same order as HTML)
+        const galleryImages = [
+            "assets/images/room1.png",
+            "assets/images/dining_hero_2.png",
+            "assets/images/walk1.png",
+            "assets/images/room2.png",
+            "assets/images/dining_overview.png",
+            "assets/images/toilet1.jpeg",
+            "assets/images/room3.png",
+            "assets/images/cafeteria.jpeg",
+            "assets/images/walk3.png",
+            "assets/images/dining1.png",
+            "assets/images/office1.png",
+            "assets/images/outdoor_sidewalk.jpeg",
+            "assets/images/boutique.png",
+            "assets/images/dining_hero.png",
+            "assets/images/another_office_shot.png",
+            "assets/images/cafeteria_two.jpeg",
+            "assets/images/experience_hero.png",
+            "assets/images/rooms_hero.png",
+            "assets/images/home_hero.png",
+            "assets/images/overview_shot.png"
+        ];
+
+        let currentIndex = 0;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = galleryImages[currentIndex];
+            lightbox.style.display = 'flex';
+            // Small delay to allow display flex to apply before opacity transition
+            setTimeout(() => {
+                lightbox.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                lightboxImg.src = '';
+            }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex >= galleryImages.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = galleryImages.length - 1;
+
+            // Fade out slightly
+            lightboxImg.style.opacity = 0.5;
+
+            setTimeout(() => {
+                lightboxImg.src = galleryImages[currentIndex];
+                lightboxImg.style.opacity = 1;
+            }, 150);
+        }
+
+        // Close on clicking background
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Swipe Support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) {
+                // Swipe Left -> Next Image
+                changeImage(1);
+            }
+            if (touchEndX > touchStartX + threshold) {
+                // Swipe Right -> Prev Image
+                changeImage(-1);
+            }
+        }
+
+        // Keyboard Support
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'ArrowLeft') changeImage(-1);
+            }
+        });
+    </script>
 
 </body>
 
