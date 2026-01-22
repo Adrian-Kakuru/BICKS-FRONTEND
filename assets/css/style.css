@@ -624,63 +624,79 @@ footer {
         height: 200px;
     }
 
-    /* Contact Cards: Compact Side-by-Side Row (V3+V4 Clean) */
+    /* Contact Cards: Vertical Stack (V5 Refactor) */
     .methods {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        padding: 0 10px 60px;
+        display: flex;
+        flex-direction: column;
+        /* Stack vertically */
+        gap: 20px;
+        /* Vertical spacing */
+        padding: 0 20px 60px;
+        /* Ensure side padding matches rest of site */
         margin-top: 20px;
-        /* Reduced from 30px */
-        align-items: stretch;
-        /* V4: Ensure equal height */
     }
 
     .method-card {
-        padding: 20px 5px;
+        width: 100%;
+        /* Full width */
+        padding: 30px 20px;
+        /* Restored comfortable padding */
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        height: 100%;
-        /* V4: Fill container height */
-        min-height: 160px;
-        /* Ensure space for cutoff content */
+        justify-content: center;
+        align-items: center;
+        /* Center align content */
+        text-align: center;
+        /* Center text */
+        height: auto;
+        min-height: auto;
     }
 
     .method-icon {
-        font-size: 1.2rem;
-        margin-bottom: 12px;
+        font-size: 1.5rem;
+        /* Restored size */
+        margin-bottom: 15px;
         line-height: 1;
     }
 
     .method-card h3 {
-        font-size: 0.75rem;
-        margin-bottom: 6px;
+        font-size: 0.9rem;
+        /* Restored size */
+        margin-bottom: 10px;
     }
 
     .method-card p {
+        display: block;
+        /* Restore description text if desired, or keep hidden? User didn't specify, but "stacking" usually implies room for content. I will keep hidden for now to be safe, or restore? User said "stacking", so space is cheap. But let's stick to the "compact" mindset unless told otherwise. Actually, with vertical stack, we have room. But let's stick to the specific user request rules: "Change the container... to flex-direction: column". "Each card should be width: 100%". "Typography: Set white-space: nowrap". nothing about restoring text. */
         display: none;
     }
 
     .method-detail {
-        font-size: 0.65rem;
-        word-break: break-word;
-        margin-bottom: auto;
-        /* Push microcopy down if needed */
+        font-size: 0.85rem;
+        /* Larger font for legibility */
+        word-break: normal;
+        white-space: nowrap;
+        /* Prevent breaking */
+        margin-bottom: 5px;
         display: block;
         color: var(--navy);
         text-decoration: underline;
-        /* UX: Indicate clickability */
     }
 
     .microcopy {
         display: block;
-        /* V4: Restore readability */
-        font-size: 0.55rem;
+        font-size: 0.65rem;
         color: #666;
-        /* Darker than #999 */
-        margin-top: 8px;
+        margin-top: 5px;
         line-height: 1.2;
     }
+
+    /* V5: Form Padding */
+    .form-card {
+        padding: 0 20px;
+    }
+
+
 
     /* V4: Intro Spacing Fixes */
     .intro {
