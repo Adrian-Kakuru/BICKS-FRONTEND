@@ -624,91 +624,99 @@ footer {
         height: 200px;
     }
 
-    /* Contact Cards: Vertical Stack (V5 Refactor) */
-    .methods {
-        display: flex;
-        flex-direction: column;
-        /* Stack vertically */
-        gap: 20px;
-        /* Vertical spacing */
-        padding: 0 20px 60px;
-        /* Ensure side padding matches rest of site */
+    /* Expert Intro Typography & Spacing (V7 Clean) */
+    .intro {
+        padding: 40px 20px 20px !important;
+        /* Added top padding/margin equivalent */
         margin-top: 20px;
+        /* Breathing room from Hero */
     }
 
+    .intro p {
+        line-height: 1.6;
+    }
+
+    .intro .divider {
+        margin: 40px auto 0;
+        width: 60px;
+    }
+
+    /* Contact Cards: Horizontal Scroll (V7) */
+    /* Contact Cards: Horizontal Scroll (V9 Fixed) */
+    .methods {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+
+        /* V9: calculated padding for 85vw cards (100 - 85 = 15 / 2 = 7.5) */
+        padding: 20px 7.5vw 60px;
+
+        margin-top: 20px;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        align-items: stretch;
+        /* Ensure vertical uniformity */
+    }
+
+    /* V9: Removed pseudo-element spacers to prevent alignment bugs */
+
     .method-card {
-        width: 100%;
-        /* Full width */
-        padding: 30px 20px;
-        /* Restored comfortable padding */
+        flex: 0 0 85vw;
+        width: 85vw;
+        max-width: 350px;
+        scroll-snap-align: center;
+        margin: 0;
+        /* V9: Force margin reset */
+
+        background-color: var(--white);
+        padding: 40px 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        /* Center align content */
         text-align: center;
-        /* Center text */
         height: auto;
-        min-height: auto;
+
+        /* Stationery Lift */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        /* Deeper shadow for "floating" card */
+        border: 1px solid #f0f0f0;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
+        /* For z-index if needed */
     }
 
-    .method-icon {
-        font-size: 1.5rem;
-        /* Restored size */
-        margin-bottom: 15px;
-        line-height: 1;
-    }
-
-    .method-card h3 {
-        font-size: 0.9rem;
-        /* Restored size */
-        margin-bottom: 10px;
-    }
-
-    .method-card p {
-        display: block;
-        /* Restore description text if desired, or keep hidden? User didn't specify, but "stacking" usually implies room for content. I will keep hidden for now to be safe, or restore? User said "stacking", so space is cheap. But let's stick to the "compact" mindset unless told otherwise. Actually, with vertical stack, we have room. But let's stick to the specific user request rules: "Change the container... to flex-direction: column". "Each card should be width: 100%". "Typography: Set white-space: nowrap". nothing about restoring text. */
-        display: none;
-    }
-
-    .method-detail {
-        font-size: 0.85rem;
-        /* Larger font for legibility */
-        word-break: normal;
-        white-space: nowrap;
-        /* Prevent breaking */
-        margin-bottom: 5px;
-        display: block;
-        color: var(--navy);
-        text-decoration: underline;
-    }
-
-    .microcopy {
-        display: block;
-        font-size: 0.65rem;
-        color: #666;
-        margin-top: 5px;
-        line-height: 1.2;
-    }
-
-    /* V5: Form Padding */
+    /* V6: Form Refinement */
     .form-card {
         padding: 0 20px;
     }
 
-
-
-    /* V4: Intro Spacing Fixes */
-    .intro {
-        padding-bottom: 20px !important;
-        /* Close gap to cards */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        background-color: #fdfdfd;
+        border: 1px solid #e0e0e0;
+        /* Distinct border */
+        border-radius: 0;
+        padding: 15px;
+        /* Comfy touch target */
+        font-size: 1rem;
     }
 
-    .intro .divider {
-        margin: 20px auto 0;
-        /* Center and tighten */
-        width: 60px;
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--gold);
+        background-color: #fff;
     }
+
+
+
+
 
     /* Progress Bar */
     .progress-bar {
