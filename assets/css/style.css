@@ -624,51 +624,74 @@ footer {
         height: 200px;
     }
 
-    /* Contact Cards: Compact Side-by-Side Row (V3 Refinement) */
+    /* Contact Cards: Compact Side-by-Side Row (V3+V4 Clean) */
     .methods {
         grid-template-columns: repeat(3, 1fr);
-        /* 3 Columns */
         gap: 10px;
-        /* Tight gap */
         padding: 0 10px 60px;
-        /* Reduce side padding */
-        margin-top: 30px;
+        margin-top: 20px;
+        /* Reduced from 30px */
+        align-items: stretch;
+        /* V4: Ensure equal height */
     }
 
     .method-card {
         padding: 20px 5px;
-        /* Minimal padding */
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        min-height: 140px;
+        height: 100%;
+        /* V4: Fill container height */
+        min-height: 160px;
+        /* Ensure space for cutoff content */
     }
 
     .method-icon {
         font-size: 1.2rem;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        line-height: 1;
     }
 
     .method-card h3 {
         font-size: 0.75rem;
-        /* Tiny headers */
-        margin-bottom: 5px;
+        margin-bottom: 6px;
     }
 
     .method-card p {
         display: none;
-        /* Hide descriptive text to save space */
     }
 
     .method-detail {
         font-size: 0.65rem;
         word-break: break-word;
-        /* Ensure emails wrap */
+        margin-bottom: auto;
+        /* Push microcopy down if needed */
+        display: block;
+        color: var(--navy);
+        text-decoration: underline;
+        /* UX: Indicate clickability */
     }
 
     .microcopy {
-        display: none;
-        /* Keep it clean */
+        display: block;
+        /* V4: Restore readability */
+        font-size: 0.55rem;
+        color: #666;
+        /* Darker than #999 */
+        margin-top: 8px;
+        line-height: 1.2;
+    }
+
+    /* V4: Intro Spacing Fixes */
+    .intro {
+        padding-bottom: 20px !important;
+        /* Close gap to cards */
+    }
+
+    .intro .divider {
+        margin: 20px auto 0;
+        /* Center and tighten */
+        width: 60px;
     }
 
     /* Progress Bar */
