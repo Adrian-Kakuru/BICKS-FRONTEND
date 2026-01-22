@@ -416,37 +416,18 @@ footer {
         --spacing-container: 20px;
     }
 
-    /* Layout & Spacing */
+    /* --- TYPOGRAPHY --- */
+    h1,
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem !important;
+        margin-bottom: 16px;
     }
 
-    .story,
-    .location {
-        grid-template-columns: 1fr;
+    h2 {
+        font-size: 2rem !important;
     }
 
-    .highlights {
-        flex-direction: column;
-    }
-
-    footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 30px;
-    }
-
-    .quote-text {
-        font-size: 1.8rem;
-    }
-
-    .quote-text::before {
-        font-size: 6rem;
-        top: -40px;
-        left: -20px;
-    }
-
-    /* Mobile Navigation */
+    /* --- NAVIGATION --- */
     .mobile-toggle {
         display: flex;
         flex-direction: column;
@@ -467,18 +448,14 @@ footer {
         transition: all 0.3s ease;
     }
 
+    /* Toggle color logic */
     .nav-standard.scrolled .mobile-toggle span,
-    .nav-standard:not(.hero-nav) .mobile-toggle span {
-        background-color: var(--gold);
-        /* Ensure visibility on white/scrolled */
-    }
-
-    /* When menu is open, make hamburger white (since menu bg is navy) */
+    .nav-standard:not(.hero-nav) .mobile-toggle span,
     body.menu-open .mobile-toggle span {
         background-color: var(--gold);
     }
 
-    /* Animate Hamburger */
+    /* Animation */
     body.menu-open .mobile-toggle span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 6px);
     }
@@ -491,7 +468,7 @@ footer {
         transform: rotate(-45deg) translate(5px, -6px);
     }
 
-    /* Mobile Menu Container */
+    /* Nav Container */
     .nav-links {
         display: none;
         position: fixed;
@@ -511,15 +488,9 @@ footer {
         display: flex !important;
     }
 
-    .nav-links.active {
-        right: 0;
-    }
-
-    /* Mobile Menu Links */
     .nav-links a {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         margin: 15px 0 !important;
-        /* Override inline styles */
         color: var(--ivory) !important;
         opacity: 0.8;
         display: block;
@@ -529,25 +500,17 @@ footer {
         color: var(--gold) !important;
         opacity: 1;
         border-bottom: none;
-        /* Remove border, use color */
     }
 
-    /* Booking Process */
-    .progress-bar {
-        flex-wrap: wrap;
-        gap: 15px;
-        font-size: 0.65rem;
-        justify-content: center;
-    }
-
-    /* --- FIXES FROM AUDIT V2 --- */
-
-    /* 1. Global Hero Alignment */
+    /* --- HERO & LAYOUT --- */
     .hero {
         justify-content: center !important;
         text-align: center;
         padding-left: 20px;
         padding-right: 20px;
+        /* prevent zoom issues */
+        min-height: 100vh;
+        height: auto;
     }
 
     .hero-bg {
@@ -557,55 +520,128 @@ footer {
     .hero-content {
         margin: 0 auto;
         transform: translateY(0);
+        width: 100%;
     }
 
-    /* 2. Reduced Typography */
-    .hero h1 {
-        font-size: 2.2rem !important;
-        margin-bottom: 20px;
+    /* Fix: "A Village of Your Own" Image Load Shift */
+    .story-img {
+        min-height: 300px;
+        width: 100%;
+        background-color: #eee;
+        /* Placeholder color */
     }
 
-    /* 3. Button Sizing */
+    /* Stack Grids */
+    .story,
+    .location,
+    .split-section,
+    .food-block,
+    .lounge,
+    .practical {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .highlights {
+        flex-direction: column;
+    }
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+
+    /* --- COMPONENTS --- */
+
+    /* Buttons: Polished Mobile Size */
     .btn,
     .btn-gold {
-        padding: 14px 24px;
+        padding: 12px 20px;
+        /* Reduced from 16px 32px */
         font-size: 0.75rem;
-        max-width: 100%;
+        /* Reduced from 0.85rem */
+        width: 100%;
+        max-width: 280px;
+        /* Prevent full width blowout */
+        margin: 0 auto;
     }
 
-    /* 4. Dining: Center Text */
+    .cta-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .btn-link,
+    .btn-text {
+        margin-left: 0;
+        font-size: 0.75rem;
+    }
+
+    /* Quote */
+    .quote-text {
+        font-size: 1.6rem;
+    }
+
+    .quote-text::before {
+        font-size: 5rem;
+        top: -30px;
+        left: -10px;
+    }
+
+    /* Dining */
     .sensory-text {
         text-align: center;
         padding: 20px;
         font-size: 1.4rem;
     }
 
-    /* 5. Experiences: Horizontal Layout */
+    /* Experiences: Horizontal Scroll */
     .in-hotel-grid {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         gap: 20px;
-        padding-bottom: 20px;
+        padding-bottom: 30px;
+        /* More space for scroll interaction */
         margin: 0 -20px;
         padding-left: 20px;
         padding-right: 20px;
         scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
     }
 
     .hotel-item {
-        min-width: 260px;
+        flex: 0 0 auto;
+        width: 280px;
         scroll-snap-align: center;
     }
 
-    /* 6. Contact: Fix Squeezed Cards */
+    .hotel-item img {
+        height: 200px;
+    }
+
+    /* Contact Cards: Vertical Stack */
     .methods {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
     }
 
     .method-card {
-        padding: 40px 20px;
+        padding: 30px 20px;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 0.65rem;
+        justify-content: center;
     }
 }
 
