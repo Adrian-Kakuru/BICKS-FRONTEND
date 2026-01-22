@@ -111,6 +111,7 @@
         }
 
         @media (max-width: 768px) {
+
             /* Suites Section Horizontal Scroll */
             .rooms-scroll {
                 display: flex;
@@ -118,7 +119,8 @@
                 flex-wrap: nowrap;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding: 0 7.5vw 40px; /* Center snap logic */
+                padding: 0 7.5vw 40px;
+                /* Center snap logic */
                 gap: 20px;
                 -webkit-overflow-scrolling: touch;
             }
@@ -140,7 +142,8 @@
 
     <nav class="nav-standard">
         <div class="nav-logo"><img src="assets/images/logo.png" alt="Bick's" style="height: 40px;"></div>
-        <button class="mobile-toggle" aria-label="Toggle Menu">
+        <button class="mobile-toggle" aria-label="Toggle Menu"
+            onclick="document.querySelector('.nav-links').classList.toggle('active'); document.body.classList.toggle('menu-open');">
             <span></span>
             <span></span>
             <span></span>

@@ -28,22 +28,32 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // Mobile Menu Toggle
-    const toggleBtn = document.querySelector('.mobile-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    // Mobile Menu Toggle (Event Delegation for Robustness)
+    document.addEventListener('click', (e) => {
+        const toggleBtn = e.target.closest('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
 
-    if (toggleBtn && navLinks) {
-        toggleBtn.addEventListener('click', () => {
+        // 1. Toggle Click
+        if (toggleBtn && navLinks) {
             navLinks.classList.toggle('active');
             document.body.classList.toggle('menu-open');
-        });
+            return;
+        }
 
-        // Close menu when a link is clicked
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
+        // 2. Link Click (Close Menu)
+        if (e.target.closest('.nav-links a')) {
+            if (navLinks) {
                 navLinks.classList.remove('active');
                 document.body.classList.remove('menu-open');
-            });
-        });
-    }
+            }
+        }
+
+        // 3. Outside Click (Optional Polish)
+        if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-toggle') && document.body.classList.contains('menu-open')) {
+            if (navLinks) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        }
+    });
 });
