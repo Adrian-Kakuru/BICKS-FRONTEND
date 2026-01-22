@@ -725,6 +725,53 @@ footer {
         font-size: 0.65rem;
         justify-content: center;
     }
+    
+    /* --- INDEX PAGE MOBILE FIXES --- */
+    
+    /* 1. Sidebar Fix */
+    .mobile-toggle {
+        z-index: 9999; /* Ensure above hero overlay */
+        position: relative;
+    }
+    
+    /* 2. Gold Dividers Centering */
+    .story-content .divider,
+    .location-text .divider {
+        margin: 20px auto !important; /* Force center */
+    }
+    
+    .story-content h2,
+    .location-text h2 {
+        text-align: center;
+    }
+    
+    .story-content p, 
+    .location-text p {
+        text-align: center;
+    }
+
+    /* 3. Highlights Horizontal Scroll */
+    .highlights {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 0 7.5vw 40px; /* Center snap logic */
+        gap: 20px;
+        -webkit-overflow-scrolling: touch;
+        
+        /* Overrides specific to highlights grid if it was grid */
+        grid-template-columns: none; 
+    }
+    
+    .highlights .card {
+        flex: 0 0 85vw;
+        width: 85vw;
+        max-width: 350px;
+        scroll-snap-align: center;
+        margin-bottom: 0; /* Remove huge bottom margins if any */
+    }
 }
 
 /* --- CONTACT PAGE --- */
