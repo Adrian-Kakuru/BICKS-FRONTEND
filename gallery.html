@@ -16,29 +16,47 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .gallery-grid {
-            column-count: 3;
-            column-gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-auto-flow: dense;
+            gap: 15px;
             padding: var(--spacing-section) var(--spacing-container);
         }
 
         .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
             border-radius: 4px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
             cursor: pointer;
+            height: 100%;
+        }
+
+        /* Span Classes */
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.big {
+            grid-column: span 2;
+            grid-row: span 2;
         }
 
         .gallery-item:hover {
             transform: translateY(-5px);
+            z-index: 2;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .gallery-item img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
             border-radius: 4px;
         }
@@ -48,9 +66,10 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
             color: #fff;
             padding: 20px;
+            padding-top: 40px;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
@@ -133,20 +152,44 @@
 
         @media (max-width: 900px) {
             .gallery-grid {
-                column-count: 2;
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .lightbox-nav {
                 display: none;
-                /* Swipe only on mobile usually, or keep buttons? */
-                /* Keeping buttons is safer, but user asked for swipe. We'll support both. */
-                padding: 10px;
             }
         }
 
         @media (max-width: 600px) {
             .gallery-grid {
-                column-count: 1;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 40px 10px;
+            }
+
+            /* Mosaic Logic for Mobile */
+            /* Big items span 2 (full width), Small items span 1 (half width) */
+            .gallery-item.wide,
+            .gallery-item.big {
+                grid-column: span 2;
+            }
+
+            .gallery-item.tall {
+                grid-row: span 2;
+            }
+
+            /* Responsive Text */
+            .gallery-caption {
+                padding: 10px;
+            }
+
+            .gallery-caption h4 {
+                font-size: 0.9rem;
+            }
+
+            /* Smaller tiles */
+            .gallery-item {
+                height: 200px;
             }
         }
     </style>
@@ -171,6 +214,9 @@
         </div>
     </nav>
 
+    <!-- Spacer to clear fixed nav -->
+    <div style="height: 120px;"></div>
+
     <section class="intro reveal" style="padding-top: 80px;">
         <div style="text-align: center;">
             <h1 style="font-size: 3rem; margin-bottom: 20px; color: var(--navy);">Moments & Details</h1>
@@ -181,10 +227,11 @@
         </div>
     </section>
 
+    <!-- Mosaic Grid -->
     <div class="gallery-grid">
 
-        <!-- 1. Room 1 -->
-        <div class="gallery-item reveal" onclick="openLightbox(0)">
+        <!-- 1. Room 1 (Tall) -->
+        <div class="gallery-item tall reveal" onclick="openLightbox(0)">
             <img src="assets/images/room1.png" loading="lazy" alt="Signature King">
             <div class="gallery-caption">
                 <h4>Signature King</h4>
@@ -192,8 +239,8 @@
             </div>
         </div>
 
-        <!-- 2. Dining Hero 2 -->
-        <div class="gallery-item reveal" onclick="openLightbox(1)">
+        <!-- 2. Dining Hero 2 (Wide) -->
+        <div class="gallery-item wide reveal" onclick="openLightbox(1)">
             <img src="assets/images/dining_hero_2.png" loading="lazy" alt="Evening Dining">
             <div class="gallery-caption">
                 <h4>Evening Ambience</h4>
@@ -219,8 +266,8 @@
             </div>
         </div>
 
-        <!-- 5. Dining Overview -->
-        <div class="gallery-item reveal" onclick="openLightbox(4)">
+        <!-- 5. Dining Overview (Big) -->
+        <div class="gallery-item big reveal" onclick="openLightbox(4)">
             <img src="assets/images/dining_overview.png" loading="lazy" alt="The Glasshouse">
             <div class="gallery-caption">
                 <h4>The Glasshouse</h4>
@@ -246,8 +293,8 @@
             </div>
         </div>
 
-        <!-- 8. Cafeteria -->
-        <div class="gallery-item reveal" onclick="openLightbox(7)">
+        <!-- 8. Cafeteria (Tall) -->
+        <div class="gallery-item tall reveal" onclick="openLightbox(7)">
             <img src="assets/images/cafeteria.jpeg" loading="lazy" alt="Coffee Bar">
             <div class="gallery-caption">
                 <h4>Coffee Bar</h4>
@@ -264,8 +311,8 @@
             </div>
         </div>
 
-        <!-- 10. Dining 1 -->
-        <div class="gallery-item reveal" onclick="openLightbox(9)">
+        <!-- 10. Dining 1 (Wide) -->
+        <div class="gallery-item wide reveal" onclick="openLightbox(9)">
             <img src="assets/images/dining1.png" loading="lazy" alt="Table Setting">
             <div class="gallery-caption">
                 <h4>The Table</h4>
@@ -300,8 +347,8 @@
             </div>
         </div>
 
-        <!-- 14. Dining Hero -->
-        <div class="gallery-item reveal" onclick="openLightbox(13)">
+        <!-- 14. Dining Hero (Big) -->
+        <div class="gallery-item big reveal" onclick="openLightbox(13)">
             <img src="assets/images/dining_hero.png" loading="lazy" alt="Dining Atmosphere">
             <div class="gallery-caption">
                 <h4>Atmosphere</h4>
@@ -327,8 +374,8 @@
             </div>
         </div>
 
-        <!-- 17. Experience Hero -->
-        <div class="gallery-item reveal" onclick="openLightbox(16)">
+        <!-- 17. Experience Hero (Wide) -->
+        <div class="gallery-item wide reveal" onclick="openLightbox(16)">
             <img src="assets/images/experience_hero.png" loading="lazy" alt="Nature Path">
             <div class="gallery-caption">
                 <h4>Nature</h4>
@@ -354,14 +401,43 @@
             </div>
         </div>
 
-        <!-- 20. Overview -->
-        <div class="gallery-item reveal" onclick="openLightbox(19)">
+        <!-- 20. Overview (Wide) -->
+        <div class="gallery-item wide reveal" onclick="openLightbox(19)">
             <img src="assets/images/overview_shot.png" loading="lazy" alt="Birds Eye">
             <div class="gallery-caption">
                 <h4>Overview</h4>
                 <p>The whole picture.</p>
             </div>
         </div>
+
+        <!-- 21. Walk (New) -->
+        <div class="gallery-item reveal" onclick="openLightbox(20)">
+            <img src="assets/images/walk.png" loading="lazy" alt="Pathway">
+            <div class="gallery-caption">
+                <h4>Morning Stroll</h4>
+                <p>Peaceful start.</p>
+            </div>
+        </div>
+
+        <!-- 22. Contact Us (New) -->
+        <div class="gallery-item reveal" onclick="openLightbox(21)">
+            <img src="assets/images/contact_us.png" loading="lazy" alt="Reception">
+            <div class="gallery-caption">
+                <h4>Reception</h4>
+                <p>Always here to help.</p>
+            </div>
+        </div>
+
+        <!-- 23. Booking Hero (New) -->
+        <div class="gallery-item reveal" onclick="openLightbox(22)">
+            <img src="assets/images/booking_hero.png" loading="lazy" alt="Lobby">
+            <div class="gallery-caption">
+                <h4>The Lobby</h4>
+                <p>First impressions.</p>
+            </div>
+        </div>
+
+
 
     </div>
 
@@ -418,7 +494,11 @@
             "assets/images/experience_hero.png",
             "assets/images/rooms_hero.png",
             "assets/images/home_hero.png",
-            "assets/images/overview_shot.png"
+            "assets/images/overview_shot.png",
+            "assets/images/walk.png",
+            "assets/images/contact_us.png",
+            "assets/images/booking_hero.png",
+
         ];
 
         let currentIndex = 0;
@@ -500,7 +580,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>

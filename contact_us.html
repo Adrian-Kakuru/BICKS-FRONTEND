@@ -15,6 +15,27 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .closing-actions {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            .closing-actions {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .closing-actions .btn {
+                width: 100%;
+                /* Full width for easier tapping */
+                max-width: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -133,7 +154,7 @@
 
     <section class="closing reveal">
         <p>We look forward to welcoming you.</p>
-        <div style="display: flex; gap: 30px; justify-content: center; align-items: center;">
+        <div class="closing-actions">
             <a href="booking.html" class="btn btn-gold">Book Your Stay</a>
             <a href="rooms.html" class="btn-text" style="border-bottom: 1px solid var(--navy);">View Rooms</a>
         </div>
